@@ -35,6 +35,27 @@ export default function Navbar() {
 
   const closeMenu = () => setMobileOpen(false);
 
+  const handleDrawerNavClick = (e, href) => {
+    e.preventDefault();
+    document.documentElement.style.overflow = '';
+    document.body.style.overflow = '';
+    setMobileOpen(false);
+
+    requestAnimationFrame(() => {
+      const target = document.querySelector(href);
+      if (target) {
+        const navbarOffset = 78;
+        const targetTop =
+          target.getBoundingClientRect().top + window.scrollY - navbarOffset;
+        window.scrollTo({
+          top: Math.max(0, targetTop),
+          behavior: 'smooth',
+        });
+        window.history.replaceState(null, '', href);
+      }
+    });
+  };
+
   const joinUrl = buildWhatsAppUrl(
     'Hello Gym Holic! I would like to join and enquire about membership options.'
   );
@@ -113,7 +134,7 @@ export default function Navbar() {
               key={link.href}
               href={link.href}
               className="navbar__drawer-link"
-              onClick={closeMenu}
+              onClick={(e) => handleDrawerNavClick(e, link.href)}
             >
               {link.label}
             </a>
@@ -134,7 +155,7 @@ export default function Navbar() {
           <a
             href="#trial-form"
             className="btn btn--secondary navbar__drawer-cta"
-            onClick={closeMenu}
+            onClick={(e) => handleDrawerNavClick(e, '#trial-form')}
           >
             Book a Free Trial
           </a>
