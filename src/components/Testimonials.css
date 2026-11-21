@@ -1,0 +1,129 @@
+.testimonials__top {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 2rem;
+  margin-bottom: 3rem;
+  flex-wrap: wrap;
+}
+
+.testimonials__top .section-header {
+  margin-bottom: 0;
+}
+
+.rating-summary {
+  background-color: var(--bg-white);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  padding: 1.5rem 1.85rem;
+  box-shadow: var(--shadow-soft);
+  width: 100%;
+  max-width: 300px;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+.rating-summary__score {
+  display: flex;
+  align-items: baseline;
+  gap: 0.35rem;
+  margin-bottom: 0.4rem;
+}
+
+.rating-summary__number {
+  font-family: var(--font-display);
+  font-size: 2.85rem;
+  font-weight: 700;
+  color: var(--text-heading);
+  line-height: 1;
+}
+
+.rating-summary__out-of {
+  font-size: 1rem;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.rating-summary__stars {
+  display: flex;
+  gap: 0.25rem;
+  color: var(--accent-primary);
+  margin-bottom: 0.5rem;
+}
+
+.rating-summary__count {
+  font-size: 0.86rem;
+  color: var(--text-body);
+  margin-bottom: 0.8rem;
+}
+
+.rating-summary__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--accent-primary);
+}
+
+.rating-summary__link:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.testimonials__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.5rem;
+}
+
+.review-card {
+  height: 100%;
+  background-color: var(--bg-white);
+  border: 1px dashed var(--border-medium);
+  border-radius: var(--radius-md);
+  padding: 1.85rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+
+.review-card__quote {
+  color: var(--accent-primary);
+  opacity: 0.7;
+}
+
+.review-card__badge {
+  display: inline-block;
+  align-self: flex-start;
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 0.3rem 0.75rem;
+  border-radius: var(--radius-pill);
+  background-color: var(--bg-secondary);
+  color: var(--text-heading);
+}
+
+.review-card__text {
+  font-size: 0.94rem;
+  line-height: 1.65;
+  flex: 1;
+}
+
+.review-card__footer {
+  padding-top: 0.9rem;
+  border-top: 1px solid var(--border-light);
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+@media (max-width: 960px) {
+  .testimonials__grid {
+    grid-template-columns: 1fr;
+  }
+}
