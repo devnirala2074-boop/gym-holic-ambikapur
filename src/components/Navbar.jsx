@@ -15,9 +15,21 @@ export default function Navbar() {
   }, []);
 
   useEffect(() => {
-    document.body.style.overflow = mobileOpen ? 'hidden' : '';
+    const value = mobileOpen ? 'hidden' : '';
+    document.documentElement.style.overflow = value;
+    document.body.style.overflow = value;
+
+    const onKeyDown = (e) => {
+      if (e.key === 'Escape' && mobileOpen) {
+        setMobileOpen(false);
+      }
+    };
+
+    window.addEventListener('keydown', onKeyDown);
     return () => {
+      document.documentElement.style.overflow = '';
       document.body.style.overflow = '';
+      window.removeEventListener('keydown', onKeyDown);
     };
   }, [mobileOpen]);
 
@@ -28,57 +40,73 @@ export default function Navbar() {
   );
 
   return (
-    <header className={`navbar ${scrolled ? 'navbar--scrolled' : ''}`}>
-      <div className="container navbar__inner">
-        <a href="#home" className="navbar__brand" aria-label="Gym Holic Home">
-          <span className="navbar__logo-badge">
-            <img
-              src="/images/gym-holic-logo.webp"
-              alt="Gym Holic official logo"
-              className="navbar__logo-img"
-              width="36"
-              height="36"
-            />
-          </span>
-          <span className="navbar__brand-text">
-            <span className="navbar__title">{BUSINESS_INFO.shortName}</span>
-            <span className="navbar__subtitle">{BUSINESS_INFO.tagline}</span>
-          </span>
-        </a>
-
-        <nav className="navbar__nav" aria-label="Primary Navigation">
-          {NAV_LINKS.map((link) => (
-            <a key={link.href} href={link.href} className="navbar__link">
-              {link.label}
-            </a>
-          ))}
-        </nav>
-
-        <div className="navbar__actions">
+    <>
+      <header
+        className={`navbar ${scrolled ? 'navbar--scrolled' : ''} ${
+          mobileOpen ? 'navbar--menu-open' : ''
+        }`}
+      >
+        <div className="container navbar__inner">
           <a
-            href={joinUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn btn--primary navbar__cta"
+            href="#home"
+            className="navbar__brand"
+            aria-label="Gym Holic Home"
+            onClick={closeMenu}
           >
-            Join Now
-            <ArrowUpRight size={16} />
+            <span className="navbar__logo-badge">
+              <img
+                src="/images/gym-holic-logo.webp"
+                alt="Gym Holic official logo"
+                className="navbar__logo-img"
+                width="36"
+                height="36"
+              />
+            </span>
+            <span className="navbar__brand-text">
+              <span className="navbar__title">{BUSINESS_INFO.shortName}</span>
+              <span className="navbar__subtitle">{BUSINESS_INFO.tagline}</span>
+            </span>
           </a>
 
-          <button
-            type="button"
-            className="navbar__toggle"
-            onClick={() => setMobileOpen((prev) => !prev)}
-            aria-label={mobileOpen ? 'Close navigation menu' : 'Open navigation menu'}
-            aria-expanded={mobileOpen}
-          >
-            {mobileOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
-        </div>
-      </div>
+          <nav className="navbar__nav" aria-label="Primary Navigation">
+            {NAV_LINKS.map((link) => (
+              <a key={link.href} href={link.href} className="navbar__link">
+                {link.label}
+              </a>
+            ))}
+          </nav>
 
-      {/* Mobile Drawer */}
-      <div className={`navbar__drawer ${mobileOpen ? 'navbar__drawer--open' : ''}`}>
+          <div className="navbar__actions">
+            <a
+              href={joinUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn btn--primary navbar__cta"
+            >
+              Join Now
+              <ArrowUpRight size={16} />
+            </a>
+
+            <button
+              type="button"
+              className="navbar__toggle"
+              onClick={() => setMobileOpen((prev) => !prev)}
+              aria-label={mobileOpen ? 'Close navigation menu' : 'Open navigation menu'}
+              aria-expanded={mobileOpen}
+              aria-controls="mobile-navigation-drawer"
+            >
+              {mobileOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+          </div>
+        </div>
+      </header>
+
+      {/* Full-Width Opaque Mobile Navigation Drawer */}
+      <div
+        id="mobile-navigation-drawer"
+        className={`navbar__drawer ${mobileOpen ? 'navbar__drawer--open' : ''}`}
+        aria-hidden={!mobileOpen}
+      >
         <nav className="navbar__drawer-nav" aria-label="Mobile Navigation">
           {NAV_LINKS.map((link) => (
             <a
@@ -104,7 +132,7 @@ export default function Navbar() {
             Join Now on WhatsApp
           </a>
           <a
-            href="#contact"
+            href="#trial-form"
             className="btn btn--secondary navbar__drawer-cta"
             onClick={closeMenu}
           >
@@ -112,6 +140,6 @@ export default function Navbar() {
           </a>
         </div>
       </div>
-    </header>
+    </>
   );
 }
