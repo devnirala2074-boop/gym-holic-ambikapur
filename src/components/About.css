@@ -110,3 +110,22 @@
     grid-template-columns: minmax(0, 1fr);
   }
 }
+
+@media (max-width: 540px) {
+  .about__cta-row {
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+    gap: 0.85rem;
+  }
+
+  .about__cta-row .btn {
+    width: 100%;
+    max-width: 100%;
+    min-height: 52px;
+    padding: 0.9rem 1.5rem;
+    border-radius: var(--radius-pill);
+    box-sizing: border-box;
+    justify-content: center;
+  }
+}

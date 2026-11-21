@@ -198,6 +198,12 @@
 
 .navbar__drawer-cta {
   width: 100%;
+  max-width: 100%;
+  min-height: 52px;
+  padding: 0.9rem 1.5rem;
+  border-radius: var(--radius-pill);
+  box-sizing: border-box;
+  justify-content: center;
 }
 
 @media (max-width: 980px) {
